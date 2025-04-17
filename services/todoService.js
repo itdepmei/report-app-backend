@@ -3,10 +3,13 @@ const asyncHandler = require('express-async-handler');
 const ApiError = require('../utils/apiError');
 
 const Todo = require('../models/todomodels');
+
 exports.getAllTodos = asyncHandler(async (req, res, next) => {
-  const todos = await Todo.find();
+
+  const todos = await Todo.find({ user: req.user._id});
   res.status(200).json({ data: todos });
 });
+
 
 exports.getTodo = asyncHandler(async (req, res, next) => {  
   const todo = await Todo.findById(req.params.id);  
@@ -49,5 +52,4 @@ exports.createTodo = asyncHandler(async (req, res, next) => {
   exports.getStats = asyncHandler(async (req, res, next) => {
     const stats = await Todo.stats();
     res.status(200).json({ data: stats });
-  });
-  
+  });  

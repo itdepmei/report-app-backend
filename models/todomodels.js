@@ -22,6 +22,11 @@ const todoSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    user: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+      required: [true, "Review must belong to a user"],
+    },
   },
   { timestamps: true }
 );

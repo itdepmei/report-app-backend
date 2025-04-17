@@ -13,13 +13,25 @@ const {
   deleteTodo,
 } = require("../services/todoService");
 
+const authService = require("../services/authService");
+
 const router = express.Router();
 
-router.route("/").get(getAllTodos).post(createTodoValidator, createTodo);
+router.route("/").get(authService.protect,
+getAllTodos).post(createTodoValidator, createTodo);
 router
   .route("/:id")
   .get(getTodoValidator, getTodo)
-  .put(updateTodoValidator, updateTodo)
-  .delete(deleteTodoValidator, deleteTodo);
+  .put(
+    authService.protect,
+    authService.allowedTo("admin", "manager"),
+    updateTodoValidator,
+    updateTodo
+  )
+  .delete(
+    authService.protect,
+    deleteTodoValidator,
+    deleteTodo
+  );
 
 module.exports = router;
