@@ -5,16 +5,12 @@ const tasksSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  slug: {
-    type: String,
-    lowercase: true,
-  },
   timeStart: {
-    type: Date,
+    type: String,
     required: true,
   },
   timeEnd: {
-    type: Date,
+    type: String,
     required: true,
   },
   note: {

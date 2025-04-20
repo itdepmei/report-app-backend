@@ -10,6 +10,13 @@ const todoRoute = require('./routes/todoRoute');
 const userRoute = require("./routes/userRoute");
 const authRoute = require("./routes/authRoute");
 
+const complaintsRoute = require("./routes/complaintsRoute");  
+const obstaclesRoute = require("./routes/obstaclesRoute");
+const outOfHoursWorkRoute = require("./routes/outOfHoursWorkRoute");
+const reportRoute = require("./routes/reportRoute");
+const suggestionsRoute = require("./routes/suggestionsRoute");
+const taskRoute = require("./routes/taskRoute");
+
 // Connect with db
 dbConnection();
 
@@ -28,6 +35,13 @@ if (process.env.NODE_ENV === 'development') {
 app.use('/api/v1/todo', todoRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/auth", authRoute);
+
+app.use("/api/v1/complaints", complaintsRoute);
+app.use("/api/v1/obstacles", obstaclesRoute);
+app.use("/api/v1/out-of-hours-work", outOfHoursWorkRoute);
+app.use("/api/v1/reports", reportRoute);
+app.use("/api/v1/suggestions", suggestionsRoute);
+app.use("/api/v1/tasks", taskRoute);
 
 app.all('*', (req, res, next) => {
   next(new ApiError(`Can't find this route: ${req.originalUrl}`, 400));

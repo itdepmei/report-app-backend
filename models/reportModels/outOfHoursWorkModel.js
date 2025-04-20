@@ -1,20 +1,12 @@
 const mongoose = require("mongoose");
 
 const outOfHoursWorkSchema = new mongoose.Schema({
-  title: {
+  timeStart: {
     type: String,
     required: true,
   },
-  slug: {
+  timeEnd: {
     type: String,
-    lowercase: true,
-  },
-  dataStart: {
-    type: Date,
-    required: true,
-  },
-  dataEnd: {
-    type: Date,
     required: true,
   },
   note: {
