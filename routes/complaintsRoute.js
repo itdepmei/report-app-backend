@@ -6,6 +6,7 @@ const {
   createComplaint,
   updateComplaint,
   deleteComplaint,
+  createFilterObject
 } = require("../services/complaintsService");
 
 const {
@@ -15,9 +16,10 @@ const {
   deleteComplaintValidator,
 } = require("../utils/validators/complaintsValidator");
 
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 
-router.route("/").get(getAllComplaints).post(createComplaintValidator, createComplaint);
+
+router.route("/").get(createFilterObject, getAllComplaints).post(createComplaintValidator, createComplaint);
 
 router
   .route("/:id")

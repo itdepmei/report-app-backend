@@ -3,13 +3,25 @@ const ApiError = require("../utils/apiError");
 const asyncHandler = require("express-async-handler");
 
 
+exports.createFilterObject = (req, res, next) => {
+    const filterObject = {};
+    if (req.params.reportId) filterObject.report = req.params.reportId;
+    req.filterObject = filterObject;
+    next();
+  };
+  
+  exports.createTask = asyncHandler(async (req, res, next) => {
+    const newTask = await Task.create(req.body);
+    res.status(201).json({ data: newTask });
+  });
+
 exports.createComplaint = asyncHandler(async (req, res, next) => {
     const newComplaint = await Complaint.create(req.body);
     res.status(201).json({ data: newComplaint });
 });
 
 exports.getAllComplaints = asyncHandler(async (req, res, next) => {
-    const complaints = await Complaint.find();
+    const complaints = await Complaint.find(req.filterObject);
     res.status(200).json({ data: complaints });
 });
 

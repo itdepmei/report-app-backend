@@ -18,6 +18,7 @@ exports.getAllReports = asyncHandler(async (req, res, next) => {
 });
 
 exports.getReport = asyncHandler(async (req, res, next) => {
+    
     const report = await Report.findById(req.params.id);
     if (!report) {
         return next(new ApiError(`No report found with id: ${req.params.id}`, 404));

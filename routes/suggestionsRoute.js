@@ -1,26 +1,29 @@
 const express = require("express");
 const {
-    getAllSuggestions,
-    getSuggestion,
-    createSuggestion,
-    updateSuggestion,
-    deleteSuggestion,
+  getAllSuggestions,
+  getSuggestion,
+  createSuggestion,
+  updateSuggestion,
+  deleteSuggestion,
+  createFilterObject,
 } = require("../services/suggestionsService");
 
 const {
-    getSuggestionValidator,
-    createSuggestionValidator,
-    updateSuggestionValidator,
-    deleteSuggestionValidator,
+  getSuggestionValidator,
+  createSuggestionValidator,
+  updateSuggestionValidator,
+  deleteSuggestionValidator,
 } = require("../utils/validators/suggestionsValidator");
 
-
-const router = express.Router();
-
-router.route("/").get(getAllSuggestions).post(createSuggestionValidator, createSuggestion);
+const router = express.Router({ mergeParams: true });
 
 router
-  .route("/:id")    
+  .route("/")
+  .get(createFilterObject, getAllSuggestions)
+  .post(createSuggestionValidator, createSuggestion);
+
+router
+  .route("/:id")
   .get(getSuggestionValidator, getSuggestion)
   .put(updateSuggestionValidator, updateSuggestion)
   .delete(deleteSuggestionValidator, deleteSuggestion);

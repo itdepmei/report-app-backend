@@ -5,6 +5,7 @@ const {
   createObstacle,
   updateObstacle,
   deleteObstacle,
+  createFilterObject
 } = require("../services/obstaclesService");
 
 const {
@@ -14,9 +15,9 @@ const {
   deleteObstacleValidator,
 } = require("../utils/validators/obstaclesValidator");
 
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 
-router.route("/").get(getAllObstacles).post(createObstacleValidator, createObstacle);
+router.route("/").get(createFilterObject, getAllObstacles).post(createObstacleValidator, createObstacle);
 
 router
   .route("/:id")

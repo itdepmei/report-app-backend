@@ -17,11 +17,14 @@ const reportRoute = require("./routes/reportRoute");
 const suggestionsRoute = require("./routes/suggestionsRoute");
 const taskRoute = require("./routes/taskRoute");
 
+const cors = require('cors');
+
 // Connect with db
 dbConnection();
 
 // express app
 const app = express();
+app.use(cors());
 
 // Middlewares
 app.use(express.json());

@@ -2,13 +2,22 @@ const OutOfHoursWork = require("../models/reportModels/outOfHoursWorkModel");
 const ApiError = require("../utils/apiError");
 const asyncHandler = require("express-async-handler");
 
+exports.createFilterObject = (req, res, next) => {
+    const filterObject = {};
+    if (req.params.reportId) filterObject.report = req.params.reportId;
+    req.filterObject = filterObject;
+    next();
+  };
+  
+ 
+
 exports.createOutOfHoursWork = asyncHandler(async (req, res, next) => {
     const newOutOfHoursWork = await OutOfHoursWork.create(req.body);
     res.status(201).json({ data: newOutOfHoursWork });
 });
 
 exports.getAllOutOfHoursWork = asyncHandler(async (req, res, next) => {
-    const outOfHoursWork = await OutOfHoursWork.find();
+    const outOfHoursWork = await OutOfHoursWork.find(req.filterObject);
     res.status(200).json({ data: outOfHoursWork });
 });
 

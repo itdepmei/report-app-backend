@@ -2,13 +2,22 @@ const Obstacles = require("../models/reportModels/obstaclesModel");
 const ApiError = require("../utils/apiError");
 const asyncHandler = require("express-async-handler");
 
+
+exports.createFilterObject = (req, res, next) => {
+    const filterObject = {};
+    if (req.params.reportId) filterObject.report = req.params.reportId;
+    req.filterObject = filterObject;
+    next();
+  };
+  
+
 exports.createObstacle = asyncHandler(async (req, res, next) => {
     const newObstacles = await Obstacles.create(req.body);    
     res.status(201).json({ data: newObstacles });
 });
 
 exports.getAllObstacles = asyncHandler(async (req, res, next) => {
-    const obstacles = await Obstacles.find();
+    const obstacles = await Obstacles.find(req.filterObject);
     res.status(200).json({ data: obstacles });
 });
 

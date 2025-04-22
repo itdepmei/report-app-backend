@@ -1,23 +1,26 @@
 const express = require("express");
 const {
-    getAllTasks,
-    getTask,
-    createTask,
-    updateTask,
-    deleteTask,
+  getAllTasks,
+  getTask,
+  createTask,
+  updateTask,
+  deleteTask,
+  createFilterObject,
 } = require("../services/taskService");
 
 const {
-    getTaskValidator,
-    createTaskValidator,
-    updateTaskValidator,
-    deleteTaskValidator,
+  getTaskValidator,
+  createTaskValidator,
+  updateTaskValidator,
+  deleteTaskValidator,
 } = require("../utils/validators/taskValidator");
 
+const router = express.Router({ mergeParams: true });
 
-const router = express.Router();
-
-router.route("/").get(getAllTasks).post(createTaskValidator, createTask);
+router
+  .route("/")
+  .get(createFilterObject, getAllTasks)
+  .post(createTaskValidator, createTask);
 
 router
   .route("/:id")

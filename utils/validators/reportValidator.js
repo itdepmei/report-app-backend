@@ -3,7 +3,7 @@ const validatorMiddleware = require("../../middlewares/validatorMiddleware");
 
 // Create Report Validator
 exports.createReportValidator = [
-  check("data")
+  check("date")
     .notEmpty()
     .withMessage("data field is required")
     .isISO8601()

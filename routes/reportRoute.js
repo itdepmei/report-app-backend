@@ -1,4 +1,11 @@
 const express = require("express");
+
+const complaintsRoute = require("./complaintsRoute");
+const suggestionsRoute = require("./suggestionsRoute");
+const taskRoute = require("./taskRoute");
+const obstaclesRoute = require("./obstaclesRoute");
+const outOfHoursWorkRoute = require("./outOfHoursWorkRoute");
+
 const {
     getAllReports,
     getReport,
@@ -16,6 +23,13 @@ const {
 
 
 const router = express.Router();
+
+router.use("/:reportId/tasks", taskRoute);
+router.use("/:reportId/suggestions", suggestionsRoute);
+router.use("/:reportId/complaints", complaintsRoute);
+router.use("/:reportId/obstacles", obstaclesRoute);
+router.use("/:reportId/outOfHoursWork", outOfHoursWorkRoute);
+
 
 router.route("/").get(getAllReports).post(createReportValidator, createReport);
 
