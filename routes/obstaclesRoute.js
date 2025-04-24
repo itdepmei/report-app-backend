@@ -1,4 +1,6 @@
 const express = require("express");
+const {setReportIdToBody} = require("../middlewares/setReportIdToBody");
+
 const {
   getAllObstacles,
   getObstacles,
@@ -17,7 +19,7 @@ const {
 
 const router = express.Router({mergeParams: true});
 
-router.route("/").get(createFilterObject, getAllObstacles).post(createObstacleValidator, createObstacle);
+router.route("/").get(createFilterObject, getAllObstacles).post(setReportIdToBody, createObstacleValidator, createObstacle);
 
 router
   .route("/:id")

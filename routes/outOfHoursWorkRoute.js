@@ -1,4 +1,5 @@
 const express = require("express");
+const {setReportIdToBody} = require("../middlewares/setReportIdToBody");
 
 const {
   getAllOutOfHoursWork,
@@ -21,7 +22,7 @@ const router = express.Router({ mergeParams: true });
 router
   .route("/")
   .get(createFilterObject, getAllOutOfHoursWork)
-  .post(createOutOfHoursWorkValidator, createOutOfHoursWork);
+  .post(setReportIdToBody, createOutOfHoursWorkValidator, createOutOfHoursWork);
 
 router
   .route("/:id")

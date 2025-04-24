@@ -1,4 +1,5 @@
 const express = require("express");
+const {setReportIdToBody} = require("../middlewares/setReportIdToBody");
 
 const {
   getAllComplaints,
@@ -6,7 +7,7 @@ const {
   createComplaint,
   updateComplaint,
   deleteComplaint,
-  createFilterObject
+  createFilterObject,
 } = require("../services/complaintsService");
 
 const {
@@ -19,7 +20,7 @@ const {
 const router = express.Router({mergeParams: true});
 
 
-router.route("/").get(createFilterObject, getAllComplaints).post(createComplaintValidator, createComplaint);
+router.route("/").get(createFilterObject, getAllComplaints).post(setReportIdToBody, createComplaintValidator, createComplaint);
 
 router
   .route("/:id")

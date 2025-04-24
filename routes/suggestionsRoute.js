@@ -1,4 +1,6 @@
 const express = require("express");
+const {setReportIdToBody} = require("../middlewares/setReportIdToBody");
+
 const {
   getAllSuggestions,
   getSuggestion,
@@ -20,7 +22,7 @@ const router = express.Router({ mergeParams: true });
 router
   .route("/")
   .get(createFilterObject, getAllSuggestions)
-  .post(createSuggestionValidator, createSuggestion);
+  .post(setReportIdToBody, createSuggestionValidator, createSuggestion);
 
 router
   .route("/:id")

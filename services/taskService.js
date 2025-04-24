@@ -2,10 +2,10 @@ const Task = require("../models/reportModels/taskModels");
 const ApiError = require("../utils/apiError");
 const asyncHandler = require("express-async-handler");
 
-exports.setTaskIdToBody = (req, res, next) => {
-  if (!req.body.report) req.body.report = req.params.reportId;
-  next();
-};
+// exports.setTaskIdToBody = (req, res, next) => {
+//   if (!req.body.report) req.body.report = req.params.reportId;
+//   next();
+// };
 
 exports.createFilterObject = (req, res, next) => {
   const filterObject = {};

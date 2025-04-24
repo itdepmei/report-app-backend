@@ -1,4 +1,6 @@
 const express = require("express");
+const {setReportIdToBody} = require("../middlewares/setReportIdToBody");
+
 const {
   getAllTasks,
   getTask,
@@ -20,7 +22,7 @@ const router = express.Router({ mergeParams: true });
 router
   .route("/")
   .get(createFilterObject, getAllTasks)
-  .post(createTaskValidator, createTask);
+  .post(setReportIdToBody, createTaskValidator, createTask);
 
 router
   .route("/:id")

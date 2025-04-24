@@ -9,7 +9,7 @@ const outOfHoursWork = require("./outOfHoursWorkModel");
 const reportSchema = new mongoose.Schema({
   date: {
     type: Date,
-    default: Date.now(),
+    
   },
   // user: {
   //   type: mongoose.Schema.ObjectId,
