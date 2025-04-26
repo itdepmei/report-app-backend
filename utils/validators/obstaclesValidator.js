@@ -4,16 +4,10 @@ const validatorMiddleware = require("../../middlewares/validatorMiddleware");
 // Create Obstacle Validator
 exports.createObstacleValidator = [
   check("timeStart")
-    .notEmpty()
-    .withMessage("timeStart is required")
-    .isString()
-    .withMessage("timeStart must be a string"),
+  .optional(),
 
   check("timeEnd")
-    .notEmpty()
-    .withMessage("timeEnd is required")
-    .isString()
-    .withMessage("timeEnd must be a string"),
+  .optional(),
 
   check("note")
     .notEmpty()

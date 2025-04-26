@@ -3,17 +3,9 @@ const validatorMiddleware = require("../../middlewares/validatorMiddleware");
 
 // Create Complaints Validator
 exports.createComplaintValidator = [
-  check("timeStart")
-    .notEmpty()
-    .withMessage("timeStart is required")
-    .isString()
-    .withMessage("timeStart must be a string"),
+  check("timeStart").optional(),
 
-  check("timeEnd") 
-    .notEmpty()
-    .withMessage("timeEnd is required")
-    .isString()
-    .withMessage("timeEnd must be a string"),
+  check("timeEnd").optional(),
 
   check("note")
     .notEmpty()
@@ -32,24 +24,18 @@ exports.createComplaintValidator = [
 
 // Get Complaint Validator
 exports.getComplaintValidator = [
-  check("id")
-    .isMongoId()
-    .withMessage("Invalid Complaint ID"),
+  check("id").isMongoId().withMessage("Invalid Complaint ID"),
   validatorMiddleware,
 ];
 
 // Update Complaint Validator
 exports.updateComplaintValidator = [
-  check("id")
-    .isMongoId()
-    .withMessage("Invalid Complaint ID"),
+  check("id").isMongoId().withMessage("Invalid Complaint ID"),
   validatorMiddleware,
 ];
 
 // Delete Complaint Validator
 exports.deleteComplaintValidator = [
-  check("id")
-    .isMongoId()
-    .withMessage("Invalid Complaint ID"),
+  check("id").isMongoId().withMessage("Invalid Complaint ID"),
   validatorMiddleware,
 ];

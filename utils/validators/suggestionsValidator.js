@@ -3,17 +3,10 @@ const validatorMiddleware = require("../../middlewares/validatorMiddleware");
 
 // Create Suggestion Validator
 exports.createSuggestionValidator = [
-  check("timeStart")
-    .notEmpty()
-    .withMessage("timeStart is required")
-    .isString()
-    .withMessage("timeStart must be a string"),
+  check("timeStart").optional(),
 
-  check("timeEnd")
-    .notEmpty()
-    .withMessage("timeEnd is required")
-    .isString()
-    .withMessage("timeEnd must be a string"),
+
+  check("timeEnd").optional(),
 
   check("note")
     .notEmpty()
