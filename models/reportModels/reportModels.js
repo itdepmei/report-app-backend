@@ -11,11 +11,15 @@ const reportSchema = new mongoose.Schema({
     type: Date,
     
   },
-  // user: {
-  //   type: mongoose.Schema.ObjectId,
-  //   ref: "User",
-  //   required: [true, "Review must belong to a user"],
-  // },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: [true, "Review must belong to a user"],
+  },
+  sendToAssistant: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 reportSchema.pre("findOneAndDelete", async function (next) {
