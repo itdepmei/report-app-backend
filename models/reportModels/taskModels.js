@@ -22,6 +22,6 @@ const tasksSchema = new mongoose.Schema({
     ref: "Report",
     required: [true, "Review must belong to a report"],
   },
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("Tasks", tasksSchema);

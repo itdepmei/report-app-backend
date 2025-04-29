@@ -32,6 +32,6 @@ reportSchema.pre("findOneAndDelete", async function (next) {
     await outOfHoursWork.deleteMany({ report: doc._id });
   }
   next();
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("Report", reportSchema);

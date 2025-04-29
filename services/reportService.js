@@ -59,6 +59,6 @@ exports.sendReportToAssistant = asyncHandler(async (req, res, next) => {
 });
 
 exports.getAllReportsForAssistant = asyncHandler(async (req, res, next) => {
-    const reports = await Report.find({ sendToAssistant: true });
+    const reports = await Report.find({ sendToAssistant: true }).populate('user', 'name');
     res.status(200).json({ data: reports });
 });
