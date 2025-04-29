@@ -15,7 +15,7 @@ const tasksSchema = new mongoose.Schema({
   },
   note: {
     type: String,
-    required: true,
+    default:"لا يوجد"
   },
   report: {
     type: mongoose.Schema.ObjectId,
