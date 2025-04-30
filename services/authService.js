@@ -16,6 +16,8 @@ exports.signup = asyncHandler(async (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
+    role: req.body.role,
+    department: req.body.department,
   });
 
   //2) Generate JWT token

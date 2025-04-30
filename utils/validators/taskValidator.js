@@ -22,10 +22,7 @@ exports.createTaskValidator = [
     .withMessage("timeEnd must be a string"),
 
   check("note")
-    .notEmpty()
-    .withMessage("note is required")
-    .isLength({ min: 3 })
-    .withMessage("note must be at least 3 characters"),
+    .optional(),
 
   check("report")
     .notEmpty()
