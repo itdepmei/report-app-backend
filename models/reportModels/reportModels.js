@@ -20,6 +20,9 @@ const reportSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  department: {
+    type:String
+  }
 });
 
 reportSchema.pre("findOneAndDelete", async function (next) {

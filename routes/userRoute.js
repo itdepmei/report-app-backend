@@ -28,6 +28,8 @@ const authService = require("../services/authService");
 const router = express.Router();
 
 
+
+router.get("/getAllUser",authService.protect, authService.allowedTo("admin"), getUsers);
 router.get("/getMe",authService.protect, getLoggedUserData, getUser);
 router.put("/changeMyPassword",authService.protect, updateLoggedUserPassword);
 router.put("/updateMe",authService.protect, updateLoggedUserValidator,updateLoggedUserData);

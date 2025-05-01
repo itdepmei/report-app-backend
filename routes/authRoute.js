@@ -6,6 +6,7 @@ const {
 
 const { signup, login, forgotPassword, verifyPasswordResetCode, resetPassword } = require("../services/authService");
 
+
 const router = express.Router();
 
 router.post("/signup", signUpValidator, signup);
