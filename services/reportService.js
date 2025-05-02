@@ -74,8 +74,10 @@ exports.sendReportToAssistant = asyncHandler(async (req, res, next) => {
 exports.getAllReportsForAssistant = asyncHandler(async (req, res, next) => {
   const filter = { sendToAssistant: true };
 
+  // فلترة حسب التاريخ فقط إذا تم إرساله
   if (req.query.date) {
     const inputDate = new Date(req.query.date);
+    inputDate.setHours(0, 0, 0, 0);
     const nextDay = new Date(inputDate);
     nextDay.setDate(inputDate.getDate() + 1);
 
@@ -85,6 +87,12 @@ exports.getAllReportsForAssistant = asyncHandler(async (req, res, next) => {
     };
   }
 
+  // فلترة القسم إذا لم تكن القيمة "الكل"
+  if (req.query.department && req.query.department !== "الكل") {
+    filter.department = { $regex: new RegExp(`^${req.query.department}$`, "i") };
+  }
+
   const reports = await Report.find(filter).populate("user", "name");
   res.status(200).json({ data: reports });
 });
+
