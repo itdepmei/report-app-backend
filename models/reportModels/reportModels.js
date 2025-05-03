@@ -1,4 +1,4 @@
-const mongoose = require("mongoose"); // 👈 مهم جداً
+const mongoose = require("mongoose");
 
 const complaints = require("./complaintsModel");
 const Obstacles = require("./obstaclesModel");
@@ -29,6 +29,31 @@ reportSchema.virtual("tasks", {
   foreignField: "report",
   localField: "_id",
 });
+
+reportSchema.virtual("complaints", {
+  ref: "Complaints", 
+  foreignField: "report",
+  localField: "_id",
+});
+
+reportSchema.virtual("Obstacles", {
+  ref: "Obstacles", 
+  foreignField: "report",
+  localField: "_id",
+});
+
+reportSchema.virtual("suggestions", {
+  ref: "Suggestions", 
+  foreignField: "report",
+  localField: "_id",
+});
+
+reportSchema.virtual("outOfHoursWork", {
+  ref: "OutOfHoursWork", 
+  foreignField: "report",
+  localField: "_id",
+});
+
 
 reportSchema.set("toObject", { virtuals: true });
 reportSchema.set("toJSON", { virtuals: true });

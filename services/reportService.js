@@ -96,7 +96,12 @@ exports.getAllReportsForAssistant = asyncHandler(async (req, res, next) => {
 
   const reports = await Report.find(filter)
     .populate("user", "name")
-    .populate("tasks"); // << هنا التعديل
+    .populate("tasks")
+    .populate("complaints")
+    .populate("Obstacles")
+    .populate("suggestions")
+    .populate("outOfHoursWork")
+    .lean({ virtuals: true });;
 
   res.status(200).json({ data: reports });
 });
