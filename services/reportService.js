@@ -89,10 +89,16 @@ exports.getAllReportsForAssistant = asyncHandler(async (req, res, next) => {
 
   // فلترة القسم إذا لم تكن القيمة "الكل"
   if (req.query.department && req.query.department !== "الكل") {
-    filter.department = { $regex: new RegExp(`^${req.query.department}$`, "i") };
+    filter.department = {
+      $regex: new RegExp(`^${req.query.department}$`, "i"),
+    };
   }
 
-  const reports = await Report.find(filter).populate("user", "name");
+  const reports = await Report.find(filter)
+    .populate("user", "name")
+    .populate("tasks"); // << هنا التعديل
+
   res.status(200).json({ data: reports });
 });
+
 

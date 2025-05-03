@@ -1,15 +1,14 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); // 👈 مهم جداً
+
 const complaints = require("./complaintsModel");
 const Obstacles = require("./obstaclesModel");
 const suggestions = require("./suggestionsModels");
 const tasks = require("./taskModels");
 const outOfHoursWork = require("./outOfHoursWorkModel");
 
-
 const reportSchema = new mongoose.Schema({
   date: {
     type: Date,
-    
   },
   user: {
     type: mongoose.Schema.ObjectId,
@@ -21,9 +20,18 @@ const reportSchema = new mongoose.Schema({
     default: false,
   },
   department: {
-    type:String
-  }
+    type: String,
+  },
+}, { timestamps: true });
+
+reportSchema.virtual("tasks", {
+  ref: "Tasks",
+  foreignField: "report",
+  localField: "_id",
 });
+
+reportSchema.set("toObject", { virtuals: true });
+reportSchema.set("toJSON", { virtuals: true });
 
 reportSchema.pre("findOneAndDelete", async function (next) {
   const doc = await this.model.findOne(this.getFilter());
@@ -35,6 +43,6 @@ reportSchema.pre("findOneAndDelete", async function (next) {
     await outOfHoursWork.deleteMany({ report: doc._id });
   }
   next();
-}, { timestamps: true });
+});
 
 module.exports = mongoose.model("Report", reportSchema);
