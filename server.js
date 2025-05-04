@@ -19,6 +19,9 @@ const taskRoute = require("./routes/taskRoute");
 
 const cors = require('cors');
 
+require("./utils/sendDailyReminder");
+
+
 // Connect with db
 dbConnection();
 
