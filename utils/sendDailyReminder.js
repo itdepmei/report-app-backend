@@ -19,7 +19,7 @@ const sendDailyReportReminder = async () => {
 
   const usersToRemind = await User.find({
     _id: { $nin: sentUserIds },
-    role: "user", 
+    role: { $in: ["user", "admin"] }, 
     active: true,
     email: { $exists: true },
   });
@@ -35,4 +35,4 @@ const sendDailyReportReminder = async () => {
   console.log(`[${new Date().toLocaleTimeString()}] Reminder sent to ${usersToRemind.length} users.`);
 };
 
-cron.schedule("0 14 * * *", sendDailyReportReminder); 
+cron.schedule("0 14 * * *", sendDailyReportReminder);

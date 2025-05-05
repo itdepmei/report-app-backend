@@ -1,6 +1,7 @@
 const Report = require("../models/reportModels/reportModels");
 const ApiError = require("../utils/apiError");
 const asyncHandler = require("express-async-handler");
+const createLog = require("../utils/createLog");
 
 exports.setUserIdToReport = (req, res, next) => {
   if (!req.body.user) req.body.user = req.user._id;
@@ -9,6 +10,7 @@ exports.setUserIdToReport = (req, res, next) => {
 
 exports.createReport = asyncHandler(async (req, res, next) => {
   const newReport = await Report.create(req.body);
+  await createLog(req.user.name, `قام المستخدم ${req.user.name} بأضافة تقرير جديد`)
   res.status(201).json({ data: newReport });
 });
 
@@ -55,6 +57,7 @@ exports.deleteReport = asyncHandler(async (req, res, next) => {
   if (!report) {
     return next(new ApiError(`No report found with id: ${req.params.id}`, 404));
   }
+
   res.status(204).send();
 });
 
@@ -68,6 +71,8 @@ exports.sendReportToAssistant = asyncHandler(async (req, res, next) => {
   }
   report.sendToAssistant = true;
   await report.save();
+  await createLog(req.user.name, `قام المستخدم ${req.user.name} بارسال تقرير `)
+
   res.status(200).json({ data: report });
 });
 
