@@ -28,7 +28,7 @@ const sendDailyReportReminder = async () => {
     await sendEmail({
       email: user.email,
       subject: "تنبيه بإرسال التقرير اليومي",
-      message: `مرحبًا ${user.name}،\n\nنذكرك بإرسال تقريرك اليومي قبل نهاية اليوم.\n\nمع التحية.`
+      message: `مرحبًا ${user.name}،\n\nنذكرك بإرسال تقريرك اليومي قبل نهاية اليوم.\n\nيمكنك إرسال التقرير من خلال الرابط التالي:\nhttp://192.168.100.6:5173\n\nمع التحية.`
     });
   }
 
