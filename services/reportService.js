@@ -54,6 +54,8 @@ exports.updateReport = asyncHandler(async (req, res, next) => {
 exports.deleteReport = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const report = await Report.findByIdAndDelete(id);
+    await createLog(req.user.name, `قام المستخدم ${req.user.name} بحذف تقرير`)
+
   if (!report) {
     return next(new ApiError(`No report found with id: ${req.params.id}`, 404));
   }

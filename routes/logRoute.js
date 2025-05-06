@@ -1,11 +1,11 @@
-const express = require("express");
-const { getLog } = require("../utils/createLog");
+// const express = require("express");
+// const { getAllLogs } = require("../server/logServive")
 
 
 
-const router = express.Router();
+// const router = express.Router();
 
-router
-  .route("/")
-  .get(getLog)
+// router
+//   .route("/")
+//   .get(getAllLogs)
   

@@ -64,6 +64,6 @@ router
   .route("/:id")
   .get(getReportValidator, getReport)
   .put(updateReportValidator, updateReport)
-  .delete(deleteReportValidator, deleteReport);
+  .delete(authService.protect, deleteReportValidator, deleteReport);
 
 module.exports = router;
