@@ -8,6 +8,7 @@ const ApiError = require("../utils/apiError");
 const User = require("../models/userModel");
 
 const createToken = require("../utils/createToken");
+const createLog = require("../utils/createLog");
 
 // Signup
 exports.signup = asyncHandler(async (req, res, next) => {
@@ -22,6 +23,8 @@ exports.signup = asyncHandler(async (req, res, next) => {
 
   //2) Generate JWT token
   const token = createToken(user._id);
+  // await createLog(req.user.name, `قام المستخدم ${req.user.name} بأضافة مستخدم جديد`, "اضافة")
+
 
   res.status(201).json({ data: user, token });
 });
@@ -29,16 +32,23 @@ exports.signup = asyncHandler(async (req, res, next) => {
 // Login
 exports.login = asyncHandler(async (req, res, next) => {
   // 1) Check if email and password exist
-  // 2) Check if user exists && password is correct
   const user = await User.findOne({ email: req.body.email });
+
+  // 2) Check if user exists && password is correct
   if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
     return next(new ApiError("Incorrect email or password", 401));
   }
+
   // 3) Generate JWT token
   const token = createToken(user._id);
-  // 4) Send response to client side
+
+  // 4) Log the login action after verifying the user
+  await createLog(user.name, `قام المستخدم ${user.name} بتسجيل الدخول`, "تسجيل الدخول");
+
+  // 5) Send response to client side
   res.status(200).json({ data: user, token });
 });
+
 
 // Protect routes
 exports.protect = asyncHandler(async (req, res, next) => {

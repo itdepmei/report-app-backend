@@ -6,6 +6,11 @@ const logSchema = new mongoose.Schema(
       type: String,
       required: [true, "User name is required"],
    },
+
+   action: {
+      type: String,
+      required: [true, "Message is required"],
+   },
   
    message: {
       type: String,

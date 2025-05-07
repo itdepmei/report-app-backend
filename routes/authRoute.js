@@ -4,8 +4,8 @@ const {
   loginValidator,
 } = require("../utils/validators/authValidator");
 
-const { signup, login, forgotPassword, verifyPasswordResetCode, resetPassword } = require("../services/authService");
 
+const { signup, login, forgotPassword, verifyPasswordResetCode, resetPassword, protect, allowedTo } = require("../services/authService");
 
 const router = express.Router();
 

@@ -10,7 +10,7 @@ exports.setUserIdToReport = (req, res, next) => {
 
 exports.createReport = asyncHandler(async (req, res, next) => {
   const newReport = await Report.create(req.body);
-  await createLog(req.user.name, `قام المستخدم ${req.user.name} بأضافة تقرير جديد`)
+  await createLog(req.user.name, `قام المستخدم ${req.user.name} بأضافة تقرير جديد`, "اضافة" )
   res.status(201).json({ data: newReport });
 });
 
@@ -54,7 +54,7 @@ exports.updateReport = asyncHandler(async (req, res, next) => {
 exports.deleteReport = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
   const report = await Report.findByIdAndDelete(id);
-    await createLog(req.user.name, `قام المستخدم ${req.user.name} بحذف تقرير`)
+    await createLog(req.user.name, `قام المستخدم ${req.user.name} بحذف تقرير`, "حذف")
 
   if (!report) {
     return next(new ApiError(`No report found with id: ${req.params.id}`, 404));
@@ -73,7 +73,7 @@ exports.sendReportToAssistant = asyncHandler(async (req, res, next) => {
   }
   report.sendToAssistant = true;
   await report.save();
-  await createLog(req.user.name, `قام المستخدم ${req.user.name} بارسال تقرير `)
+  await createLog(req.user.name, `قام المستخدم ${req.user.name} بارسال تقرير `, "تعديل")
 
   res.status(200).json({ data: report });
 });

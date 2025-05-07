@@ -49,7 +49,7 @@ app.use("/api/v1/out-of-hours-work", outOfHoursWorkRoute);
 app.use("/api/v1/reports", reportRoute);
 app.use("/api/v1/suggestions", suggestionsRoute);
 app.use("/api/v1/tasks", taskRoute);
-app.use("/api/v1/log", logRoute);
+app.use("/api/v1/logs", logRoute);
 
 app.all('*', (req, res, next) => {
   next(new ApiError(`Can't find this route: ${req.originalUrl}`, 400));
