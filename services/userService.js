@@ -93,21 +93,21 @@ exports.getLoggedUserData = asyncHandler(async (req, res, next) => {
 
 // Update logged user password
 exports.updateLoggedUserPassword = asyncHandler(async (req, res, next) => {
-  // 1) Update password based user id
-  const user = await User.findByIdAndUpdate(
-    req.user._id,
-    {
-      password: await bcrypt.hash(req.body.password, 12),
-      passwordChangeAt: Date.now(),
-    },
-    {
-      new: true,
-    }
-  );
-  // 2) Generate JWT token
+  const user = await User.findById(req.user._id).select("+password");
+
+  const isPasswordCorrect = await bcrypt.compare(req.body.currentPassword, user.password);
+  if (!isPasswordCorrect) {
+    return res.status(401).json({ message: "كلمة السر الحالية غير صحيحة" });
+  }
+
+  user.password = req.body.newPassword;
+  user.passwordChangeAt = Date.now();
+  await user.save(); // هنا سيتم تشفير كلمة السر تلقائياً من خلال الـ middleware
+
   const token = createToken(user._id);
-  res.status(200).json({ data: user, token });
+  res.status(200).json({data: user, message: "تم تغيير كلمة المرور بنجاح", token });
 });
+
 
 // Update logged user data
 exports.updateLoggedUserData = asyncHandler(async (req, res, next) => {
