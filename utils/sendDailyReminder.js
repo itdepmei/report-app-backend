@@ -28,11 +28,14 @@ const sendDailyReportReminder = async () => {
     await sendEmail({
       email: user.email,
       subject: "تنبيه بإرسال التقرير اليومي",
-      message: `مرحبًا ${user.name}،\n\nنذكرك بإرسال تقريرك اليومي قبل نهاية اليوم.\n\nيمكنك إرسال التقرير من خلال الرابط التالي:\nhttp://192.168.100.6:5173\n\nمع التحية.`
+      message: `مرحبًا ${user.name}،\n\nنذكرك بإرسال تقريرك اليومي قبل نهاية اليوم.\n\nيمكنك إرسال التقرير من خلال الرابط التالي:\nhttps://682c312f77b1e60008fe8f6b--reportfronted.netlify.app/\n\nمع التحية.`
     });
   }
 
   console.log(`[${new Date().toLocaleTimeString()}] Reminder sent to ${usersToRemind.length} users.`);
 };
 
-cron.schedule("0 14 * * *", sendDailyReportReminder);
+cron.schedule("0 14 * * *", () => {
+  console.log("Sending reminder at:", new Date().toLocaleString());
+  sendDailyReportReminder();
+});
